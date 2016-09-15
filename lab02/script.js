@@ -1,4 +1,76 @@
 
+/**This is an object prototype for a person. It includes features for names, birthdates, friends, and greeting.
+*
+*	@author abs25
+*	@version 9/14/16
+*/
+
+//create the person class
+var Person = function (name, birthdate, friends, greeting) {
+	this.name = name;
+	this.birthdate = new Date(birthdate); //put it in date form
+	this.friends = friends;
+	this.greeting = greeting;
+};
+
+//accessor to get a person's name
+Person.prototype.getName = function() {
+	return this.name;
+}
+//mutator to change a person's name
+Person.prototype.changeName = function(newName) {
+	this.name = newName;
+}
+
+//adapted from Naveen Jose, http://jsfiddle.net/codeandcloud/n33RJ/
+//returns the person's age
+Person.prototype.getAge = function(){
+	var today = new Date();
+	var age = today.getFullYear() - this.birthdate.getFullYear();
+	var month = today.getMonth() - this.birthdate.getMonth();
+	if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+//return list of friends
+Person.prototype.getFriends = function(){
+	var friendList = "";
+	//loop through the friend array
+	for(var i = 0; i < this.friends.length; i++) {
+		//this if statement makes sure that there is no comma after the last friend
+		if(i < this.friends.length - 1) {
+			friendList += this.friends[i] + ", "; //add each friend to the string
+		} else {
+			friendList += this.friends[i]; //add last friend without comma
+		}
+	}
+	return friendList; //return the string with all the friends
+}
+
+//mutator to add a friend
+Person.prototype.addFriend = function(newFriend) {
+	this.friends.push(newFriend);
+}
+
+//print a greeting
+Person.prototype.printGreeting = function() {
+	console.log(this.greeting);
+}
+
+//create a Student class
+function Student(name, birthdate, friends, major, greeting) {
+	//make it a Person
+	Person.call(this, name, birthdate, friends, greeting);
+	this.major = major;
+}
+
+//Whenever a student is created, create a person
+Student.prototype = Object.create(Person.prototype);
+// Set the "constructor" property to refer to Student
+Student.prototype.constructor = Student;
+
 //accessor for major
 Student.prototype.getMajor = function(){
 	return this.major;
