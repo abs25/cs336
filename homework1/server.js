@@ -25,6 +25,11 @@ app.get('/people/:id/years', function (req, res) {
   res.json(getYearsById(req.params.id)); //call the getYearsById function which gets the senority (in years) for a specified ID
 });
 
+//send 404 if any other path
+app.get("*", function (req, res) {
+	res.sendStatus(404);
+});
+
 app.listen(3000, function () {
   console.log('Server listening on port 3000!');
 });
