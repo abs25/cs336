@@ -1,3 +1,8 @@
+/**
+* This server stores and returns people records.
+* @author abs25
+*/
+
 var express = require('express');
 var app = express();
 
