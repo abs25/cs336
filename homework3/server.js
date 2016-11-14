@@ -10,7 +10,7 @@ var path = require('path');
 var HttpStatus = require('http-status-codes');
 var bodyParser = require('body-parser');
 
-app.use(express.static('public'));
+app.use('/', express.static(path.join(__dirname, 'dist')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
