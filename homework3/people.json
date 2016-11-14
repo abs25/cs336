@@ -1,0 +1,38 @@
+[
+    {
+        "personId": 0,
+        "firstName": "Chris",
+        "lastName": "Dilley",
+        "years": 4
+    },
+    {
+        "personId": 1,
+        "firstName": "Derek",
+        "lastName": "Dik",
+        "years": 4
+    },
+    {
+        "personId": 2,
+        "firstName": "Stephen",
+        "lastName": "Curry",
+        "years": 8
+    },
+    {
+        "personId": 3,
+        "firstName": "Justin",
+        "lastName": "Verlander",
+        "years": 10
+    },
+    {
+        "personId": 4,
+        "firstName": "Matthew",
+        "lastName": "Stafford",
+        "years": 8
+    },
+    {
+        "personId": 5,
+        "firstName": "Michael",
+        "lastName": "Fulmer",
+        "years": 1
+    }
+]
