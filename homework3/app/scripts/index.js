@@ -7,6 +7,6 @@ import $ from 'jquery';
 import PersonBox from './personBox.js';
 import Person from './person.js';
 ReactDOM.render(
-	<PersonBox url="/api/people" pollInterval={2000}/>,
+	<PersonBox url="/people" pollInterval={2000}/>,
 	document.getElementById('content')
 );
