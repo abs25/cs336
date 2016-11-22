@@ -52,7 +52,7 @@ module.exports = React.createClass({
     handleDelete: function() {
         $.ajax({
             url: API_URL + "/" + this.props.params.id,
-            type: 'PUT',
+            type: 'DELETE',
             contentType:'application/json'
         })
             .done(function(comments){
