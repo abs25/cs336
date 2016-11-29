@@ -1,13 +1,12 @@
-//WindowComponent
-var WindowComponent = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <h1>Hello World</h1>
-      </div>
-    );
-  }
-});
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Remarkable from 'remarkable';
+import $ from 'jquery';
+
+//import '../css/base.css';
+
+import WindowComponent from './WindowComponent';
+
 //render ALL the things
 ReactDOM.render(
   <WindowComponent />,
