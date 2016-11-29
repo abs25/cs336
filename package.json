@@ -1,0 +1,18 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "JediTrainer Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test sspecified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "Jedi"
+  ],
+  "author": "abs25, cpd5, drd26",
+  "license": "CDL",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
