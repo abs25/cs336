@@ -1,16 +1,17 @@
-ReactJS:
--WindowComponent
-  -NavBar
-  -ScoreBox
-    -ScoreSearch
-    -ScoreFilter
-    -ScoreList
-      -Score {name, score, date}
-    -ScoreLength
-  -AboutBox
-  -MediaBox
-    -VideoBox
-    -PictureBox
+## ReactJS Component Stucture ##
+- WindowComponent
+  - NavBar
+  - ScoreBox
+    - ScoreSearch
+    - ScoreFilter
+    - ScoreList
+      - Score {name, score, date}
+    - ScoreLength
+  - AboutBox
+  - MediaBox
+    - VideoBox
+    - PictureBox
 
-MongoDB:
+## MongoDB Collection Structure ##
+#### Score ####
 {_objectID, id, name, score, date, difficulty?}
