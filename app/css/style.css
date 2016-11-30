@@ -1,3 +1,39 @@
 body {
-  background-color: pink;
+  background-color: red;
+}
+
+.navBar {
+  border: 1px solid green;
+}
+
+.scoreBox {
+  border: 1px solid black;
+}
+
+.scoreSearch {
+  border: 1px solid green;
+}
+
+.scoreFilter {
+  border: 1px solid black;
+}
+
+.scoreList {
+  border: 1px solid blue;
+}
+
+.score {
+  border: 1px solid black;
+}
+
+.scoreListLength {
+  border: 1px solid black;
+}
+
+.aboutBox {
+  border: 1px solid green;
+}
+
+.mediaBox {
+  border: 1px solid black;
 }
