@@ -9,12 +9,11 @@ body {
 h1 {
   color: green;
 }
-
 .navBar {
   color: blue;
-  border: 1px solid green;
+  border: 5px solid green;
 }
-div div div div{
+div div div div {
   color: blue;
 }
 .scoreBox {
@@ -31,7 +30,8 @@ div div div div{
 }
 
 .scoreList {
-  border: 1px solid blue;
+  border: 10px solid blue;
+  background-color: white;
 }
 
 .score {
