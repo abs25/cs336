@@ -11,20 +11,12 @@ h1 {
 }
 
 .navBar {
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffde00;
-  color: #333;
-  display: inline-block;
-  font-family: monospace;
-  font-size: 32px;
-  text-align: center;
-}
-.navBar {
   color: blue;
   border: 1px solid green;
 }
-
+div div div div{
+  color: blue;
+}
 .scoreBox {
   color: blue;
   border: 1px solid black;
