@@ -1,5 +1,14 @@
 import React from 'react';
 import '../css/style.css';
-module.exports = React.createClass(
+import Score from './Score';
 
-);
+module.exports = React.createClass({
+  render: function() {
+    return (
+      <div className="scoreList">
+        <h3>Rank - Name - Score - Date</h3>
+        <Score />
+      </div>
+    );
+  }
+});
