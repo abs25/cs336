@@ -1,9 +1,11 @@
 import React from 'react';
-import '../css/style.css';
+import styles from '../css/style.css';
+
 module.exports = React.createClass({
   render: function() {
     return (
-      <div className="aboutBox">
+      //http://javascriptplayground.com/blog/2016/07/css-modules-webpack-react/
+      <div className={styles.aboutBox}>
         <h2>About Jedi Trainer</h2>
       </div>
     );
