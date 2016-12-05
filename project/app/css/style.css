@@ -14,28 +14,27 @@ footer {
     text-align: center;
 }
 
-
 /* flexbox container */
 .windowComponent {
   min-height: 800px;
   display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
 }
 
 /* NavBar component */
 .navBar {
   border: 1px solid black;
   /*flex: flex-grow flex-shrink flex-basis (length) */
-  flex: 1 0 10%;
+  flex: 1 100%;
+  order: 1;
 
 }
 
 /* ScoreBox Component and children */
 .scoreBox {
 
-  flex: 2 0 50%;
-
+  flex: 1 40%;
+  order: 3;
   /* top right bottom left */
   margin: 10px 0 10px 0;
   padding: 5px 5px 5px 5px;
@@ -67,7 +66,8 @@ footer {
 
 /* AboutBox component */
 .aboutBox {
-  flex: 1 0 20%;
+  flex: 0 0 25%;
+  order: 2;
   border: 1px solid black;
 }
 
@@ -75,5 +75,6 @@ footer {
 .mediaBox {
   margin: 10px 0 0 0;
   border: 1px solid black;
-  flex: 1 0 10%;
+  flex: 0 0 25%;
+  order: 4;
 }
