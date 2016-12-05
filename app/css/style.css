@@ -1,13 +1,15 @@
-/* JediTrainer website stylesheet */
-/* @author abs25, cpd5, drd26 */
-
+/** JediTrainer website stylesheet
+  * @author abs25, cpd5, drd26 */
 body {
   background-color: #00FFE4;
 }
 
+/* the header and footer are not part of React or Flexbox */
 header {
   color: blue;
   font-size: 36px;
+  font-weight: bold;
+  text-align: center;
 }
 
 footer {
@@ -16,19 +18,21 @@ footer {
 
 /* flexbox container */
 .windowComponent {
-  min-height: 800px;
   display: flex;
+  /** wrap allows the boxes to form a newline if one line is full rather than jamming them all together
+    * this allows the navbar to sit on top of the other three boxes */
   flex-flow: row wrap;
 }
 
 /* NavBar component */
 .navBar {
   border: 1px solid black;
-  /*flex: flex-grow flex-shrink flex-basis (length) */
-  flex: 1 100%;
+  /*flex: flex-grow flex-shrink flex-basis (width) */
+  flex: 0 0 100%;
   order: 1;
 
 }
+
 
 /* ScoreBox Component and children */
 .scoreBox {
@@ -64,9 +68,12 @@ footer {
   border: 1px solid purple;
 }
 
+
 /* AboutBox component */
 .aboutBox {
-  flex: 0 0 25%;
+  margin: 10px 0 0 0;
+  /* This allows it to flex to one side at 25% width */
+  flex: 0 2 25%;
   order: 2;
   border: 1px solid black;
 }
@@ -75,6 +82,21 @@ footer {
 .mediaBox {
   margin: 10px 0 0 0;
   border: 1px solid black;
-  flex: 0 0 25%;
+  /* This allows it to flex to one side at 25% width */
+  flex: 0 2 25%;
   order: 4;
+}
+
+/* for smaller screens */
+@media screen and (max-width: 800px){
+  .windowComponent {
+    display: flex;
+    /* Change the design to column so it's more scrollable */
+    flex-flow: column;
+  }
+  /* Change the order so the scoreboard shows before the aboutBox */
+  .navBar { order: 1; }
+  .scoreBox { order: 2; }
+  .aboutBox { order: 3; }
+  .mediaBox { order: 4; }
 }
