@@ -1,6 +1,6 @@
 /**
 * JediTrainer Website Server
-*
+* @author abs25, cpd5, drd26
 */
 var path = require('path');
 var express = require('express');
@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var databaseConnection;
 
-var url = 'mongodb://jeditrainer:' + process.env.PASSWORD + '@ds113628.mlab.com:13628/jeditrainerdb';
+var url = 'mongodb://cs336:' + process.env.PASSWORD + '@ds113628.mlab.com:13628/jeditrainerdb';
 
 MongoClient.connect(url, function(err, db) {
 	if (err) throw err;
