@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Remarkable from 'remarkable';
 import $ from 'jquery';
 
-import '../css/style.css';
+import styles from '../css/style.css';
 
 import WindowComponent from './WindowComponent';
 
