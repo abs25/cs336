@@ -2,20 +2,47 @@
 /* @author abs25, cpd5, drd26 */
 
 body {
-  background-color: pink;
+  background-color: #00FFE4;
+}
+
+header {
+  color: blue;
+  font-size: 36px;
+}
+
+footer {
+    text-align: center;
+}
+
+
+/* flexbox container */
+.windowComponent {
+  min-height: 800px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
 }
 
 /* NavBar component */
 .navBar {
-  border: 1px solid green;
+  border: 1px solid black;
+  /*flex: flex-grow flex-shrink flex-basis (length) */
+  flex: 1 0 10%;
+
 }
 
 /* ScoreBox Component and children */
 .scoreBox {
+
+  flex: 2 0 50%;
+
   /* top right bottom left */
   margin: 10px 0 10px 0;
+  padding: 5px 5px 5px 5px;
   border: 2px solid black;
   background-color: white;
+
+
 }
 
 .scoreSearch {
@@ -40,6 +67,7 @@ body {
 
 /* AboutBox component */
 .aboutBox {
+  flex: 1 0 20%;
   border: 1px solid black;
 }
 
@@ -47,4 +75,5 @@ body {
 .mediaBox {
   margin: 10px 0 0 0;
   border: 1px solid black;
+  flex: 1 0 10%;
 }
