@@ -6,6 +6,8 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 
+var APP_PATH = path.join(__dirname, 'dist');
+
 var MongoClient = require('mongodb').MongoClient;
 var databaseConnection;
 
@@ -18,7 +20,7 @@ MongoClient.connect(url, function(err, db) {
 });
 
 var app = express();
-app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use('/', express.static(APP_PATH));
 
 
 app.use(bodyParser.json());
@@ -29,6 +31,8 @@ app.get('/', function(req, res)
 {
 	res.send("da force");
 });
+
+app.use('*', express.static(APP_PATH));
 
 //listen
 app.listen(3000, function()
