@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Remarkable from 'remarkable';
-import { Router, Route, Redirect, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, Redirect, browserHistory, IndexRoute } from 'react-router';
 import $ from 'jquery';
 
 import styles from '../css/style.css';
@@ -15,13 +15,13 @@ import Home from './Home'
 
 //render ALL the things
 ReactDOM.render((
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
   {/*these are the paths to the different boxes*/}
     <Route path="/" component={WindowComponent} >
        {/* make them children of WindowComponent */}
       <IndexRoute component={Home} />
       <Route path="/about" component={AboutBox} />
-      <Route path="/scores" component={ScoreBox} />
+      <Route path="/leaderboard" component={ScoreBox} />
       <Route path="/media" component={MediaBox} />
     </Route>
   </Router>

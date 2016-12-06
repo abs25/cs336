@@ -16,6 +16,10 @@ footer {
     text-align: center;
 }
 
+.active {
+  color: green;
+}
+
 /* flexbox container */
 .home {
   display: flex;
