@@ -32,6 +32,31 @@ app.get('/', function(req, res)
 	res.send("da force");
 });
 
+//GET ALL DA SCORES
+app.get('/scores', function(req, res) {
+	var collection = databaseConnection.collection('scores');
+
+	collection.find({}).toArray(function(err, docs) {
+		if(err) throw err;
+
+		res.json(docs);
+	});
+
+});
+
+app.post('/score', function(req, res) {
+	var newScore = {
+		id: Number(req.body.id),
+		name: req.body.name,
+		score: Number(req.body.score),
+		date: Date.now(),
+		difficulty: req.body.difficulty
+	}
+
+	var collection = databaseConnection.collection('scores');
+	collection.insert(newScore);
+});
+
 app.use('*', express.static(APP_PATH));
 
 //listen
