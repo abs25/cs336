@@ -10,10 +10,10 @@ module.exports = React.createClass({
         <h2>NavBar</h2>
         {/* Create a list of links that correspond with the paths defined in index.js */}
         <ul role="nav">
-          <li><IndexLink to="/" activeClassName={styles.active}>Home</IndexLink></li>
-          <li><Link to="/about" activeClassName={styles.active}>About</Link></li>
-          <li><Link to="/leaderboard" activeClassName={styles.active}>Leaderboard</Link></li>
-          <li><Link to="/media" activeClassName={styles.active}>Media</Link></li>
+          <IndexLink to="/" activeClassName={styles.active}><li>Home</li></IndexLink>
+          <Link to="/about" activeClassName={styles.active}><li>About</li></Link>
+          <Link to="/leaderboard" activeClassName={styles.active}><li>Leaderboard</li></Link>
+          <Link to="/media" activeClassName={styles.active}><li>Media</li></Link>
         </ul>
       </div>
     );

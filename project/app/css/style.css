@@ -35,6 +35,12 @@ footer {
   /*flex: flex-grow flex-shrink flex-basis (width) */
 }
 
+.navBar li {
+  list-style: none;
+  text-decoration: none;
+  display: inline;
+  border: 5px outset blue;
+}
 
 /* ScoreBox Component and children */
 .scoreBox {
@@ -52,6 +58,7 @@ footer {
 
 .scoreSearch {
   border: 1px solid red;
+  float: right;
 }
 
 .scoreFilter {
