@@ -16,6 +16,7 @@ footer {
     text-align: center;
 }
 
+/* when the nav links are active */
 .active {
   color: green;
 }
@@ -32,7 +33,6 @@ footer {
 .navBar {
   border: 1px solid black;
   /*flex: flex-grow flex-shrink flex-basis (width) */
-  flex: 1 0 100%;
 }
 
 
@@ -92,7 +92,6 @@ footer {
 /* for smaller screens */
 @media screen and (max-width: 800px){
   .home {
-    display: flex;
     /* Change the design to column so it's more scrollable */
     flex-flow: column;
   }
