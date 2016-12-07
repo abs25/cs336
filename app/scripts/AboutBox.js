@@ -8,6 +8,8 @@ module.exports = React.createClass({
 
       <div className={styles.aboutBox}>
         <h2>About Jedi Trainer</h2>
+        <p>HEY THERE, DAT BOI!</p>
+        <p>HEY THERE, DAT BOI!</p>
       </div>
 
     );
