@@ -9,14 +9,14 @@ var bodyParser = require('body-parser');
 var APP_PATH = path.join(__dirname, 'dist');
 
 var MongoClient = require('mongodb').MongoClient;
-var databaseConnection;
+var db;
 
 var url = 'mongodb://cs336:' + process.env.PASSWORD + '@ds113628.mlab.com:13628/jeditrainerdb';
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function(err, databaseConnection) {
 	if (err) throw err;
 
-	databaseConnection = db;
+	db = databaseConnection;
 });
 
 var app = express();
@@ -34,13 +34,33 @@ app.get('/', function(req, res)
 
 //GET ALL DA SCORES
 app.get('/scores', function(req, res) {
-	var collection = databaseConnection.collection('scores');
+	var queryString = req.body.searchFilter;
+	var topNewAll = req.body.topNewAll;
+
+	var collection = db.collection('scores');
 
 	collection.find({}).toArray(function(err, docs) {
 		if(err) throw err;
 
 		res.json(docs);
 	});
+
+});
+
+app.get('/top', function(req, res) {
+	//Get the top 10 high scores
+	db.collection('scores').find({}).sort({score: -1}).limit(10).toArray(function(err, docs) {
+		if(err) throw err;
+		res.json(docs);
+	});
+});
+
+//Change the names later...
+app.get('/new', function(req, res) {
+
+});
+
+app.get('/last', function(req, res) {
 
 });
 
@@ -53,7 +73,7 @@ app.post('/score', function(req, res) {
 		difficulty: req.body.difficulty
 	}
 
-	var collection = databaseConnection.collection('scores');
+	var collection = db.collection('scores');
 	collection.insert(newScore);
 });
 
