@@ -34,12 +34,20 @@ app.get('/', function(req, res)
 
 //GET ALL DA SCORES
 app.get('/scores', function(req, res) {
-	var queryString = req.body.searchFilter;
-	var topNewAll = req.body.topNewAll;
+	console.log(req.query);
+
+	var query = req.query;
+	var searchFilter = query.searchFilter;
+	console.log("Got search filter: " + searchFilter);
+	var sortFilter = query.sortFilter;
 
 	var collection = db.collection('scores');
 
-	collection.find({}).toArray(function(err, docs) {
+	var findQuery = {};
+	if(searchFilter != null){
+		findQuery = {name: searchFilter};
+	}
+	collection.find(findQuery).toArray(function(err, docs) {
 		if(err) throw err;
 
 		res.json(docs);
