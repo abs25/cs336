@@ -7,11 +7,7 @@ module.exports = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var searchFilter = this.state.searchFilter.trim();
-    if (!searchFilter) {
-      return;
-    }
     this.props.onSearchFilterSubmit(searchFilter);
-    this.setState({searchFilter: ''});
   },
   handleSearchFilterChange: function(e) {
     this.setState({searchFilter: e.target.value});
@@ -22,7 +18,6 @@ module.exports = React.createClass({
       <form className="scoreSearchForm" onSubmit={this.handleSubmit}>
       <input
         type="text"
-        placeholder="Search"
         value={this.state.searchFilter}
         onChange={this.handleSearchFilterChange}
       />

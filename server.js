@@ -41,7 +41,7 @@ app.get('/scores', function(req, res) {
 	var collection = db.collection('scores');
 
 	var findQuery = {};
-	if(searchFilter != null){
+	if(searchFilter != null && searchFilter != ''){
 		findQuery = {name: searchFilter};
 	}
 	collection.find(findQuery).toArray(function(err, docs) {
