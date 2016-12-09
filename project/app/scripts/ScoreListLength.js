@@ -20,8 +20,8 @@ module.exports = React.createClass({
   },
   render: function() {
     return (
-      <div className={styles.aboutBox}>
-        <h3><button onClick={this.handleTen}>10</button> - <button onClick={this.handleFifty}>50</button> - <button onClick={this.handleOneHundred}>100</button> </h3>
+      <div className={styles.scoreListLength}>
+        <h3><a onClick={this.handleTen}>10</a> - <a onClick={this.handleFifty}>50</a> - <a onClick={this.handleOneHundred}>100</a> </h3>
       </div>
     );
   }
