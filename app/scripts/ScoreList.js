@@ -12,21 +12,12 @@ module.exports = React.createClass({
     // TODO: Rank is not yet implemented
     return (
       <div className={styles.scoreList}>
-        <table>
-        <thead>
-          <tr>
-            <th>Score</th>
-            <th>Name</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-          {/*can we get each value of scoreNodes separately?*/}
-            <td>{scoreNodes}</td>
-          </tr>
-        </tbody>
-        </table>
+          <span className={styles.scoreValue}>Score</span>
+          <span className={styles.scoreName}>Name</span>
+          <span className={styles.scoreDate}>Date</span>
+          <div className = {styles.scoreNodes}>
+            {scoreNodes}
+          </div>
       </div>
     );
   }
