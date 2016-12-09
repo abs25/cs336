@@ -24,7 +24,7 @@ module.exports = React.createClass({
       url: "/scores/", // TODO: Extract hard coded URL
       dataType: 'json',
       cache: false,
-      data: {searchFilter: this.state.searchFilter, sortFilter: this.state.sortFilter},
+      data: {searchFilter: this.state.searchFilter, sortFilter: this.state.sortFilter, lengthFilter: this.state.lengthFilter},
       success: function(data) {
         this.setState({data: data});
       }.bind(this),
@@ -42,15 +42,20 @@ module.exports = React.createClass({
     this.loadScoresFromServer();
   },
 
+  handleLengthFilterSubmit: function(lengthFilter) {
+    this.setState({lengthFilter: lengthFilter});
+    this.loadScoresFromServer();
+  },
+
   render: function() {
     return (
       <div className={styles.scoreBox}>
         <h2>Leaderboard</h2>
         <ScoreSearch onSearchFilterSubmit={this.handleSearchSubmit}/>
         <ScoreFilter onSortFilterSubmit={this.handleSortFilterSubmit}/>
-        <ScoreList cols={cols} data={this.state.data} />
-        {/*<ScoreList data={this.state.data}/>*/}
-        <ScoreListLength />
+
+        <ScoreList cols={cols} data={this.state.data} />      
+        <ScoreListLength onLengthFilterSubmit={this.handleLengthFilterSubmit}/>
       </div>
     );
   }

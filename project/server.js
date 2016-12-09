@@ -46,6 +46,10 @@ app.get('/scores', function(req, res) {
 		findQuery.$query = {name: searchFilter};
 	}
 
+	if(lengthFilter == null || lengthFilter == ''){
+		lengthFilter = 10;
+	}
+
 	switch(sortFilter){
 		case "Top":
 			//findQuery.$orderby = { score : -1};
@@ -70,7 +74,7 @@ app.get('/scores', function(req, res) {
 	// });
 
 	// this will get the whole list of scores
-	collection.find(findQuery).sort(sortFilter).limit(10).toArray(function(err, docs) {
+	collection.find(findQuery).sort(sortFilter).limit(parseInt(lengthFilter)).toArray(function(err, docs) {
 		if(err) throw err;
 
 		res.json(docs);
