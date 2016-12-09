@@ -6,7 +6,11 @@ import ScoreList from './ScoreList';
 import ScoreListLength from './ScoreListLength';
 
 import $ from 'jquery';
-
+var cols = [
+  {key: 'score', label: 'Score'},
+  {key: 'name', label: 'Name'},
+  {key: 'date', label: 'Date'}
+];
 module.exports = React.createClass({
   getInitialState: function() {
     return {data: []};
@@ -37,13 +41,15 @@ module.exports = React.createClass({
     this.setState({sortFilter: sortFilter});
     this.loadScoresFromServer();
   },
+
   render: function() {
     return (
       <div className={styles.scoreBox}>
         <h2>Leaderboard</h2>
         <ScoreSearch onSearchFilterSubmit={this.handleSearchSubmit}/>
         <ScoreFilter onSortFilterSubmit={this.handleSortFilterSubmit}/>
-        <ScoreList data={this.state.data}/>
+        <ScoreList cols={cols} data={this.state.data} />
+        {/*<ScoreList data={this.state.data}/>*/}
         <ScoreListLength />
       </div>
     );

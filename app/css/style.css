@@ -40,6 +40,10 @@ link {
   textDecoration: 'none'
 }
 
+td {
+  border: 1px solid black;
+}
+
 .navBar li {
   list-style: none;
   text-decoration: none;
