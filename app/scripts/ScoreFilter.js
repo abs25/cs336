@@ -19,7 +19,7 @@ module.exports = React.createClass({
   },
   render: function() {
     return (
-      <div className={styles.aboutBox}>
+      <div className={styles.scoreFilter}>
         <h3><button onClick={this.handleTop}>Top</button> - <button onClick={this.handleNew}>New</button> - <button onClick={this.handleBestRecent}>Best Recent</button> </h3>
       </div>
     );
