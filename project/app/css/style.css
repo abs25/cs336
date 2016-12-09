@@ -40,8 +40,18 @@ link {
   textDecoration: 'none'
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  font-size: 150%;
+  padding-bottom: 10px;
+}
 td {
-  border: 1px solid black;
+  text-align: center;
+  border-top: 1px solid black;
+  padding: 10px 0 10px 0;
 }
 
 .navBar li {
@@ -55,7 +65,7 @@ td {
 
 /* ScoreBox Component and children */
 .scoreBox {
-
+  text-align: center;
   flex: 1 40%;
   order: 2;
   /* top right bottom left */
@@ -64,17 +74,31 @@ td {
   border: 2px solid black;
   background-color: white;
 
+}
+
+/* score filter flex box */
+.scoreFlexContainer {
+  display: flex;
+  flex-flow: row;
 
 }
 
 .scoreSearch {
   border: 1px solid red;
-  float: right;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: 15px;
+  order: 2;
+
 }
 
 .scoreFilter {
-  border: 1px solid orange;
+  border: 1px solid blue;
+  margin-right: auto;
+  margin-top: auto;
+  order: 1;
 }
+/* end score filter flex */
 
 .scoreList {
   border: 1px solid blue;
@@ -122,4 +146,10 @@ td {
   .scoreBox { order: 1; }
   .aboutBox { order: 2; }
   .mediaBox { order: 3; }
+
+  .scoreFlexContainer {
+    flex-flow: column;
+  }
+  .scoreSearch { order: 1; }
+  .scoreFilter { order: 2; }
 }

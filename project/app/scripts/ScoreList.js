@@ -2,6 +2,8 @@ import React from 'react';
 import styles from '../css/style.css';
 import Score from './Score';
 
+{/* Most of the table code is from http://jsfiddle.net/jhudson8/dahdx6eu/ */}
+
 module.exports = React.createClass({
   render: function() {
     var headerComponents = this.generateHeaders(),

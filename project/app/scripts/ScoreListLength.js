@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../css/style.css';
-
 module.exports = React.createClass({
+
   getInitialState: function() {
     return {lengthFilter: 10};
   },
@@ -22,6 +22,7 @@ module.exports = React.createClass({
     return (
       <div className={styles.scoreListLength}>
         <h3><a onClick={this.handleTen}>10</a> - <a onClick={this.handleTwentyFive}>25</a> - <a onClick={this.handleFifty}>50</a> </h3>
+
       </div>
     );
   }

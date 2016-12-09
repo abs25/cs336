@@ -51,10 +51,11 @@ module.exports = React.createClass({
     return (
       <div className={styles.scoreBox}>
         <h2>Leaderboard</h2>
-        <ScoreSearch onSearchFilterSubmit={this.handleSearchSubmit}/>
-        <ScoreFilter onSortFilterSubmit={this.handleSortFilterSubmit}/>
-
-        <ScoreList cols={cols} data={this.state.data} />      
+        <div className={styles.scoreFlexContainer} >
+          <ScoreSearch onSearchFilterSubmit={this.handleSearchSubmit}/>
+          <ScoreFilter onSortFilterSubmit={this.handleSortFilterSubmit}/>
+        </div>
+        <ScoreList cols={cols} data={this.state.data} />
         <ScoreListLength onLengthFilterSubmit={this.handleLengthFilterSubmit}/>
       </div>
     );
