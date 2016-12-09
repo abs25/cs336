@@ -6,14 +6,27 @@ module.exports = React.createClass({
   render: function() {
     var scoreNodes = this.props.data.map(function(score) {
       return (
-        <Score name={score.name} scoreValue = {score.score} date={score.date} difficulty={score.difficulty} key={score.id}/>
+        <Score scoreValue = {score.score} name={score.name}  date={score.date} difficulty={score.difficulty} key={score.id}/>
       );
     });
     // TODO: Rank is not yet implemented
     return (
       <div className={styles.scoreList}>
-        <h3>Name - Score - Date</h3>
-        {scoreNodes}
+        <table>
+        <thead>
+          <tr>
+            <th>Score</th>
+            <th>Name</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          {/*can we get each value of scoreNodes separately?*/}
+            <td>{scoreNodes}</td>
+          </tr>
+        </tbody>
+        </table>
       </div>
     );
   }

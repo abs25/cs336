@@ -32,14 +32,21 @@ footer {
 /* NavBar component */
 .navBar {
   border: 1px solid black;
+  text-align: center;
   /*flex: flex-grow flex-shrink flex-basis (width) */
+}
+
+link {
+  textDecoration: 'none'
 }
 
 .navBar li {
   list-style: none;
   text-decoration: none;
   display: inline;
+  margin: 5px;
   border: 5px outset blue;
+
 }
 
 /* ScoreBox Component and children */
