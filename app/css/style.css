@@ -88,6 +88,10 @@ td {
   border: 1px solid purple;
 }
 
+.scoreListLength a {
+  text-decoration: underline;
+  color: blue;
+}
 
 /* AboutBox component */
 .aboutBox {
