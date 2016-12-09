@@ -37,13 +37,32 @@ app.get('/scores', function(req, res) {
 	var query = req.query;
 	var searchFilter = query.searchFilter;
 	var sortFilter = query.sortFilter;
+	var lengthFilter = query.lengthFilter;
 
 	var collection = db.collection('scores');
 
 	var findQuery = {};
 	if(searchFilter != null && searchFilter != ''){
-		findQuery = {name: searchFilter};
+		findQuery.$query = {name: searchFilter};
 	}
+
+	switch(sortFilter){
+		case "Top":
+			//findQuery.$orderby = { score : -1};
+			sortFilter = {score : -1};
+			break;
+		case "New":
+			//findQuery.$orderby = { date : -1};
+			sortFilter = { date : -1};
+			break;
+		case "Month":
+			//findQuery.$orderby = { score : -1, date : -1}
+			sortFilter = {date : -1, score : -1};
+			break;
+		default:
+			sortFilter = {};
+	}
+
 	//this query will get the top 10 scores in order from highest to lowest
 	// collection('scores').find({}).sort({score: -1}).limit(10).toArray(function(err, docs) {
 	// 	if(err) throw err;
@@ -51,7 +70,7 @@ app.get('/scores', function(req, res) {
 	// });
 
 	// this will get the whole list of scores
-	collection.find(findQuery).toArray(function(err, docs) {
+	collection.find(findQuery).sort(sortFilter).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
 		res.json(docs);
