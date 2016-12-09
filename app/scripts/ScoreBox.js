@@ -36,7 +36,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className={styles.scoreBox}>
-        <h2>ScoreBox</h2>
+        <h2>Leaderboard</h2>
         <ScoreSearch onSearchFilterSubmit={this.handleSearchSubmit}/>
         <ScoreFilter />
         <ScoreList data={this.state.data}/>
