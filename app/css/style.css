@@ -1,21 +1,29 @@
 /** JediTrainer website stylesheet
   * @author abs25, cpd5, drd26 */
 body {
-  background-color: #D9FAFF;
+  background-image: url("https://i.ytimg.com/vi/voWpbz1De_M/maxresdefault.jpg");
 }
 
 /* the header and footer are not part of React or Flexbox */
 header {
-  color: blue;
+  color: #fff;
   font-size: 36px;
   font-weight: bold;
   text-align: center;
 }
 
 footer {
+    color: #fff;
+    padding: 10px 0px 5px 0px;
     text-align: center;
 }
 
+.windowComponent {
+  background-color: #d9d9d9;
+  border-radius: 30px;
+  width: 90%;
+  margin: auto;
+}
 /* flexbox container */
 .home {
   display: flex;
@@ -28,36 +36,40 @@ footer {
 /* NavBar component */
 /********************/
 .navBar {
-  border: 1px solid black;
   text-align: center;
   height: 50px;
   line-height: 50px;
+  width: 95%;
+  margin: auto;
+  padding-top: 10px;
 
 }
 
 .navBar ul {
+  border-radius: 3px;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: #333;
+  background-color: #6C7A7D;
   vertical-align: middle;
 
 }
 .navBar li {
   display: inline;
-  font-size: 110%;
-  color: white;
+  font-size: 120%;
+  color: #fff;
   height: 50px;
-  padding: 16px 25px;
+  padding: 15px 25px;
 }
 
 .navBar li:hover {
-  background-color: #111;
+  background-color: #556063;
 }
 
 /* when the nav links are active */
 .active {
-  color: green;
+  background-color: #424A4C;
+  padding: 17px 0 16px 0 ;
 }
 /**************/
 /* End navBar */
@@ -79,14 +91,14 @@ td {
 
 /* ScoreBox Component and children */
 .scoreBox {
+  border-radius: 3px;
   text-align: center;
-  flex: 1 40%;
+  flex: 1 38%;
   order: 2;
   /* top right bottom left */
   margin: 10px 0 10px 0;
-  padding: 5px 5px 5px 5px;
-  border: 2px solid black;
-  background-color: white;
+  padding: 10px 5px 5px 10px;
+  background-color: #ECFFFC;
 
 }
 
@@ -98,7 +110,7 @@ td {
 }
 
 .scoreSearch {
-  border: 1px solid red;
+  
   margin-left: auto;
   margin-top: auto;
   margin-bottom: 15px;
@@ -107,7 +119,7 @@ td {
 }
 
 .scoreFilter {
-  border: 1px solid blue;
+
   margin-right: auto;
   margin-top: auto;
   order: 1;
@@ -115,15 +127,14 @@ td {
 /* end score filter flex */
 
 .scoreList {
-  border: 1px solid blue;
+
 }
 
 .score {
-  border: 1px solid yellow;
 }
 
 .scoreListLength {
-  border: 1px solid purple;
+
 }
 
 .scoreListLength a {
@@ -133,24 +144,24 @@ td {
 
 /* AboutBox component */
 .aboutBox {
+  padding: 15px;
   margin: 10px 0 0 0;
   /* This allows it to flex to one side at 25% width */
-  flex: 0 2 25%;
+  flex: 0 2 22%;
   order: 1;
-  border: 1px solid black;
 }
 
 /* MediaBox component and children */
 .mediaBox {
+  padding: 15px;
   margin: 10px 0 0 0;
-  border: 1px solid black;
   /* This allows it to flex to one side at 25% width */
-  flex: 0 2 25%;
+  flex: 0 2 22%;
   order: 3;
 }
 
 /* for smaller screens */
-@media screen and (max-width: 800px){
+@media screen and (max-width: 900px){
   .home {
     /* Change the design to column so it's more scrollable */
     flex-flow: column;
@@ -175,6 +186,6 @@ td {
   }
 
   .navBar li {
-    padding: 16px 20px;
+    padding: 15px 20px;
   }
 }
