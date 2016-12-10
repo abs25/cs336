@@ -16,11 +16,6 @@ footer {
     text-align: center;
 }
 
-/* when the nav links are active */
-.active {
-  color: green;
-}
-
 /* flexbox container */
 .home {
   display: flex;
@@ -29,16 +24,44 @@ footer {
   flex-flow: row wrap;
 }
 
+/********************/
 /* NavBar component */
+/********************/
 .navBar {
   border: 1px solid black;
   text-align: center;
-  /*flex: flex-grow flex-shrink flex-basis (width) */
+  height: 50px;
+  line-height: 50px;
+
 }
 
-link {
-  textDecoration: 'none'
+.navBar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  vertical-align: middle;
+
 }
+.navBar li {
+  display: inline;
+  font-size: 110%;
+  color: white;
+  height: 50px;
+  padding: 16px 25px;
+}
+
+.navBar li:hover {
+  background-color: #111;
+}
+
+/* when the nav links are active */
+.active {
+  color: green;
+}
+/**************/
+/* End navBar */
+/**************/
 
 table {
   width: 100%;
@@ -52,15 +75,6 @@ td {
   text-align: center;
   border-top: 1px solid black;
   padding: 10px 0 10px 0;
-}
-
-.navBar li {
-  list-style: none;
-  text-decoration: none;
-  display: inline;
-  margin: 5px;
-  border: 5px outset blue;
-
 }
 
 /* ScoreBox Component and children */
@@ -150,6 +164,17 @@ td {
   .scoreFlexContainer {
     flex-flow: column;
   }
-  .scoreSearch { order: 1; }
-  .scoreFilter { order: 2; }
+  .scoreSearch {
+    order: 1;
+    margin: 0;
+
+  }
+  .scoreFilter {
+    order: 2;
+    margin: 0;
+  }
+
+  .navBar li {
+    padding: 16px 20px;
+  }
 }
