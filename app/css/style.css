@@ -67,7 +67,7 @@ footer {
 }
 
 /* when the nav links are active */
-.active {
+.indexActive, .aboutActive, .scoresActive, .mediaActive{
   background-color: #424A4C;
   padding: 17px 0 16px 0 ;
 }
@@ -110,7 +110,7 @@ td {
 }
 
 .scoreSearch {
-  
+
   margin-left: auto;
   margin-top: auto;
   margin-bottom: 15px;
