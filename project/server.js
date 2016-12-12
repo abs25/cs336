@@ -12,6 +12,7 @@ var MongoClient = require('mongodb').MongoClient;
 var db;
 
 var url = 'mongodb://cs336:' + process.env.PASSWORD + '@ds113628.mlab.com:13628/jeditrainerdb';
+var port = process.env.PORT || 3000;
 
 MongoClient.connect(url, function(err, databaseConnection) {
 	if (err) throw err;
@@ -115,7 +116,7 @@ app.post('/score', function(req, res) {
 app.use('*', express.static(APP_PATH));
 
 //listen
-app.listen(3000, function()
+app.listen(port, function()
 {
-	console.log("Example app listening on port 3000");
+	console.log("Example app listening on port " + port);
 });
