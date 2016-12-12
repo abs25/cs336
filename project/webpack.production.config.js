@@ -25,7 +25,7 @@ module.exports = {
           'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new HtmlWebpackPlugin({template: __dirname + "/app/index.tmpl.html"})
+    new HtmlWebpackPlugin({template: __dirname + "/app/index.tmpl.html"}),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new ExtractTextPlugin("[name]-[hash].css")
