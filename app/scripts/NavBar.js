@@ -5,10 +5,10 @@ import { Link, IndexLink } from 'react-router'
 //this is the navigation bar
 module.exports = React.createClass({
 
-  //In order to have a second, hidden div, i think we need to have it hidden until the route is active, then change the state. Something similar to this: http://stackoverflow.com/questions/24502898/show-or-hide-element-in-react-js maybe?*/
-  //I'd rather not use jQuery if we can just do it in react. But CSS doesn't have if statements :( */)
+// In order to have a second, hidden div, i think we need to have it hidden until the route is active, then change the state. Something similar to this: http://stackoverflow.com/questions/24502898/show-or-hide-element-in-react-js maybe?
+// I'd rather not use jQuery if we can just do it in react. But CSS doesn't have if statements :(
 
-  //or, maybe do something like: if route is active, change aboutBox class to aboutBoxActive class? */
+// or, maybe do something like: if route is active, change aboutBox class to aboutBoxActive class?
   render: function() {
     return (
       <div className={styles.navBar}>
