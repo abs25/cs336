@@ -1,5 +1,7 @@
 /** JediTrainer website stylesheet
   * @author abs25, cpd5, drd26 */
+
+  /* TODO: fix navBar heights (probably use a measurement other than px*/
 body {
   background-image: url("https://i.ytimg.com/vi/voWpbz1De_M/maxresdefault.jpg");
 }
@@ -74,6 +76,7 @@ footer {
 /**************/
 /* End navBar */
 /**************/
+
 
 table {
   width: 100%;
