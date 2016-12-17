@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/style.css';
+import styles from '../css/style.sty.css';
 import { Link, IndexLink } from 'react-router'
 
 //this is the navigation bar

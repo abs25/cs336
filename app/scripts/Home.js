@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../css/style.css'
+import styles from '../css/style.sty.css'
 
 import AboutBox from './AboutBox';
 import ScoreBox from './ScoreBox';

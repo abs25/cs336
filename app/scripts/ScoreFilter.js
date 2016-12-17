@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/style.css';
+import styles from '../css/style.sty.css';
 module.exports = React.createClass({
   getInitialState: function() {
     return {sortFilter: ''};

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/style.css';
+import styles from '../css/style.sty.css';
 import ScoreSearch from './ScoreSearch';
 import ScoreFilter from './ScoreFilter';
 import ScoreList from './ScoreList';

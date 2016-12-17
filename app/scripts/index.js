@@ -4,7 +4,7 @@ import Remarkable from 'remarkable';
 import { Router, Route, Redirect, browserHistory, IndexRoute } from 'react-router';
 import $ from 'jquery';
 
-import styles from '../css/style.css';
+import styles from '../css/style.sty.css';
 
 import WindowComponent from './WindowComponent';
 import AboutBox from './AboutBox';
