@@ -68,12 +68,6 @@ app.get('/scores', function(req, res) {
 			sortFilter = {};
 	}
 
-	//this query will get the top 10 scores in order from highest to lowest
-	// collection('scores').find({}).sort({score: -1}).limit(10).toArray(function(err, docs) {
-	// 	if(err) throw err;
-	// 	res.json(docs);
-	// });
-
 	// this will get the whole list of scores
 	collection.find(findQuery).sort(sortFilter).limit(parseInt(lengthFilter)).toArray(function(err, docs) {
 		if(err) throw err;

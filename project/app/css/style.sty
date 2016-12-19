@@ -83,14 +83,14 @@ td
 
 /* ScoreBox Component and children */
 .scoreBox
-  border-radius: 3px
   text-align: center
-  flex: 1 38%
-  order: 2
+  flex: 1 58%
+  order: 1
   /* top right bottom left */
-  margin: 10px 0 10px 0
-  padding: 10px 5px 5px 10px
-  background-color: #ECFFFC
+  margin: 10px 0 10px 15px
+  padding: 10px 20px 5px 15px
+  /*background-color: #ECFFFC*/
+  border-right: 1px solid black
 
 /* score filter flex box */
 .scoreFlexContainer
@@ -98,7 +98,6 @@ td
   flex-flow: row
 
 .scoreSearch
-
   margin-left: auto
   margin-top: auto
   margin-bottom: 15px
@@ -112,23 +111,23 @@ td
 
 .scoreListLength a
   text-decoration: underline
-  color: blue
+  color: #6C7A7D
 
 /* AboutBox component */
 .aboutBox
   padding: 15px
   margin: 10px 0 0 0
   /* This allows it to flex to one side at 25% width */
-  flex: 0 2 22%
-  order: 1
+  /*flex: 0 2 22%
+  order: 1 */
 
 /* MediaBox component and children */
 .mediaBox
-  padding: 15px
-  margin: 10px 0 0 0
+  padding: 15px 15px 15px 10px
+  margin: 10px 0 0 10px
   /* This allows it to flex to one side at 25% width */
-  flex: 0 2 22%
-  order: 3
+  flex: 1 31%
+  order: 2
 
 /* for smaller screens */
 @media screen and (max-width: 900px)
@@ -139,10 +138,8 @@ td
   /* Change the order so the scoreboard shows before the aboutBox */
   .scoreBox
     order: 1
-  .aboutBox
-    order: 2
   .mediaBox
-    order: 3
+    order: 2
 
   .scoreFlexContainer
     flex-flow: column
