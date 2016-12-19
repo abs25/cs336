@@ -1,6 +1,7 @@
 /** JediTrainer website stylesheet
   * @author abs25, cpd5, drd26 */
 /* TODO: fix navBar heights (probably use a measurement other than px*/
+/*variables*/
 body {
   background-image: url("../img/background.jpg");
 }
@@ -10,6 +11,7 @@ header {
   font-size: 36px;
   font-weight: bold;
   text-align: center;
+  margin-bottom: 5px;
 }
 footer {
   color: #fff;
@@ -112,7 +114,7 @@ td {
 /* end score filter flex */
 .scoreListLength a {
   text-decoration: underline;
-  color: #6c7a7d;
+  color: #00f;
 }
 /* AboutBox component */
 .aboutBox {
@@ -129,6 +131,36 @@ td {
 /* This allows it to flex to one side at 25% width */
   flex: 1 31%;
   order: 2;
+}
+/* this keeps the text over the images closer to the image */
+h5 {
+  margin-bottom: 0;
+}
+.unrealImages {
+  clear: both;
+}
+.unityImages {
+  padding-top: 5px;
+  clear: both;
+}
+.codeImages {
+  padding-top: 5px;
+  clear: both;
+}
+.responsiveImg {
+  border-radius: 10px;
+  float: left;
+  height: auto;
+  width: 45%;
+  padding: 5px;
+}
+.video {
+  padding-top: 15px;
+  clear: both;
+  width: 100%;
+}
+.responsiveVideo {
+  padding: 5px;
 }
 /* for smaller screens */
 @media screen and (max-width: 900px) {
