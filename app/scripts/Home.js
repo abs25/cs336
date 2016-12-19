@@ -9,7 +9,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className={styles.home}>
-        <AboutBox />
+
         <ScoreBox />
         <MediaBox />
       </div>
