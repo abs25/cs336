@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../css/style.sty.css'
+import styles from '../css/style.css'
 
 import AboutBox from './AboutBox';
 import ScoreBox from './ScoreBox';
@@ -9,7 +9,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className={styles.home}>
-        <AboutBox />
+
         <ScoreBox />
         <MediaBox />
       </div>

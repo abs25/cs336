@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/style.sty.css';
+import styles from '../css/style.css';
 module.exports = React.createClass({
       // TODO: Add other score fields
   render: function() {

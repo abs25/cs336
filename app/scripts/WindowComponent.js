@@ -2,7 +2,7 @@ import React from 'react';
 
 import NavBar from './NavBar';
 
-import styles from '../css/style.sty.css';
+import styles from '../css/style.css';
 
 //WindowComponent
 module.exports = React.createClass({
