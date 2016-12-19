@@ -7,8 +7,11 @@ module.exports = React.createClass({
       <div className={styles.mediaBox}>
         <h2>Media</h2>
         <h3>Video</h3>
-        <iframe width="280" height="157" src="https://www.youtube.com/embed/8BpGmXSRCC4" frameborder="0" allowfullscreen></iframe>
+        <iframe className={styles.responsiveVideo} src="https://www.youtube.com/embed/8BpGmXSRCC4" frameborder="0" allowfullscreen></iframe>
         <h3>Screenshots</h3>
+        <div><img src={require('../img/Capture.png')} className={styles.responsiveImg} /></div>
+        <div><img src={require('../img/Capture2.png')} className={styles.responsiveImg} /></div>
+        <div><img src={require('../img/Capture3.png')} className={styles.responsiveImg} /></div>
       </div>
     );
   }
