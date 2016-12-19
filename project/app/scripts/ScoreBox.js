@@ -39,11 +39,13 @@ module.exports = React.createClass({
   },
   handleSortFilterSubmit: function(sortFilter) {
     this.setState({sortFilter: sortFilter});
+    this.setState({searchFilter: ''});
     this.loadScoresFromServer();
   },
 
   handleLengthFilterSubmit: function(lengthFilter) {
     this.setState({lengthFilter: lengthFilter});
+    this.setState({searchFilter: ''});
     this.loadScoresFromServer();
   },
 
