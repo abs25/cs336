@@ -97,8 +97,11 @@ app.get('/scores', function(req, res) {
 });
 
 //Get the top 10 scores
-app.get('/top10', function(req, res) {
+app.get('/top10/:score', function(req, res) {
 	var collection = db.collection('scores');
+
+	//TODO: Check if the player's score is in the top 10.
+	var playerScore = req.params.score;
 
 	//Sort descending, limit 10 scores, and return them
 	collection.find({}).sort({score: -1}).limit(10).toArray(function(err, docs) {
@@ -109,88 +112,107 @@ app.get('/top10', function(req, res) {
 })
 
 //Get the bottom 10 scores
-app.get('/bottom10', function(req, res) {
+app.get('/bottom10/:score', function(req, res) {
 	var collection = db.collection('scores');
 
+	//TODO: Check if the player's score is in the bottom 10.
+	var playerScore = req.params.score;
+
+//	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
 	//Sort ascending, limit 10 scores, and return them
 	collection.find({}).sort({score: 1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
+//		for(i = 0; i < 9; i++) {
+//			if(newScore.score <= docs[i].score) {
+//				docs.splice(i, 0, newScore);
+//				break;
+//			}
+//		}
 		res.json(docs);
 	});
 });
 
-//Get five scores above and below a player's score
-app.get('/nearby/:name', function(req, res) {
+//This route was written with blood, sweat, and tears.
+//TODO: Make this route more efficient ;-;
+//Get the scores nearby the player's score.
+app.get('/nearby/:score', function(req, res) {
 	var collection = db.collection('scores');
 
-	var userName = req.params.name;
+	var playerScore = req.params.score;
 
-	var index = 0;
+	var scoresArray = [];
 
-	//Since there is no formal function for getting the index of a
-	//record in a MongoDB database, I have to do this.
-	collection.find({}).toArray(function(err, docs) {
-		//Get the index of the record
-		for(i = 0; i < docs.length; i++) {
-			if(docs[i].name === userName) {
-				break;
-			}
-			index++;
+	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
+
+	//Get all of the scores
+	collection.find({}).sort({score: -1}).toArray(function(err, allScores){
+
+		if(err) throw err;
+
+		//Get the current first place and last place scores
+		var firstPlaceScore = allScores[0];
+		var lastPlaceScore = allScores[allScores.length-1];
+
+		//Is the new player's score in first place?
+		if(newScore.score >= firstPlaceScore.score) {
+			//Yes. Get the next 9 scores.
+			scoresArray.push(newScore);
+			scoresArray = scoresArray.concat((allScores.slice(0, 9)));
+			res.json(scoresArray);
+		//Is the new player's score in last place?
+		} else if(newScore.score <= lastPlaceScore.score){
+			//Yes. Get the previous 9 scores.
+			scoresArray = scoresArray.concat(allScores.slice((allScores.length-8), allScores.length+1));
+			scoresArray.push(newScore);
+			res.json(scoresArray);
+		//Else, we're not in either place.
+		} else {
+			//Get the scores greater than the player's score
+			collection.find({ score: { $gt: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs) {
+				if(err) throw err;
+
+				//Are there less than 4 scores greater than the player?
+				if(docs.length >= 4) {
+					//Nope. Get four scores above
+					scoresArray = docs.slice((docs.length-4), docs.length);
+
+					//Stick the player's score into the scores array
+					scoresArray.push(newScore);
+
+					//Get the scores that are less than the player
+					collection.find({ score: {$lte: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs2) {
+						//If there are more than 5 scores less than the player,
+						//take 5 from the array
+						if(docs2.length >= 5) {
+							scoresArray = scoresArray.concat(docs2.slice(0, 5));
+							//Else, just concat the scores (we don't have five scores below the player)
+						} else {
+							scoresArray = scoresArray.concat(docs2);
+						}
+						res.json(scoresArray);
+					});
+
+				} else {
+					//We have less than four scores, so we're good.
+					//Push the player's score onto the docs array
+					docs.push(newScore);
+					//Get the scores that are less than the player
+					collection.find({ score: {$lte: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs2) {
+						var holder2 = [];
+						//Less than 5 scores?
+						if(docs2.length >= 5) {
+							//No.
+							scoresArray = docs.concat(docs2.slice(0, 5));
+						} else {
+							//Yes.
+							scoresArray = docs.concat(docs2);
+						}
+						res.json(scoresArray);
+					});
+				}
+			});
 		}
-
-		//Got the index.
-		//If the score is in first place...
-		if(index == 0) {
-			//Get the next 10 records.
-			var scores = docs.slice(1, 11);
-			res.json(scores);
-		}
-		else if(index == docs.length-1) { //Else, if the score is in last place...
-			//http://stackoverflow.com/questions/7538519/how-to-get-subarray-from-array
-			//https://www.w3schools.com/jsref/jsref_slice_array.asp
-			//Get the previous 10 records.
-			var scores = docs.slice((docs.length-11), docs.length-1);
-			res.json(scores);
-		} else { //Else, the score is somewhere in the middle...
-			//Check if the index is close to the lower or upper bounds of the array.
-			//If so, use the index as a pivot
-			var lookAheadUpper = index+5;
-			var lookAheadLower = index-5;
-			if(lookAheadLower < 0) { //Are we close to the first place score?
-				//Yes.
-				//Take the difference, and get those records after the score.
-				//The reason why we subtract 10 is because we want a limit of
-				//10 scores.
-				//We could make it a constant should we ever want to
-				//display more than 10 scores, but I'm unsure how that
-				//would affect the math.
-				var diff = (10-index);
-				var scoresAbove = docs.slice(0, index);
-				//Array is 0-indexed; add 1 to the index+diff calculation to get
-				//the rest of the scores.
-				var scoresBelow = docs.slice(index+1, index+diff+1);
-				//http://stackoverflow.com/questions/433627/concat-json-objects
-				//Concatenate both score arrays and return it
-				scoresAbove = scoresAbove.concat(scoresBelow);
-				res.json(scoresAbove);
-			} else if(lookAheadUpper >= docs.length) { //Are we close to the lower place score?
-				//Yes. Take the difference, and get those records before the score.
-				var diff = 10-(docs.length-index)+1;
-				var scoresAbove = docs.slice(index-diff, index);
-				var scoresBelow = docs.slice(index+1, docs.length+1);
-				scoresAbove = scoresAbove.concat(scoresBelow);
-				res.json(scoresAbove);
-			} else { //We're not close to either first or last place.
-				//Slice 5 above and below the score.
-				var scoresAbove = docs.slice(index-5, index);
-				//+6 to include 5 scores (it doesn't include index+6...)
-				var scoresBelow = docs.slice(index+1, index+6);
-				scoresAbove = scoresAbove.concat(scoresBelow);
-				res.json(scoresAbove);
-			}
-		}
-
 	});
 });
 
