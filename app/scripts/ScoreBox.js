@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/style.sty.css';
+import styles from '../css/style.css';
 import ScoreSearch from './ScoreSearch';
 import ScoreFilter from './ScoreFilter';
 import ScoreList from './ScoreList';
@@ -39,11 +39,13 @@ module.exports = React.createClass({
   },
   handleSortFilterSubmit: function(sortFilter) {
     this.setState({sortFilter: sortFilter});
+    this.setState({searchFilter: ''});
     this.loadScoresFromServer();
   },
 
   handleLengthFilterSubmit: function(lengthFilter) {
     this.setState({lengthFilter: lengthFilter});
+    this.setState({searchFilter: ''});
     this.loadScoresFromServer();
   },
 

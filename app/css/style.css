@@ -1,0 +1,191 @@
+/** JediTrainer website stylesheet
+  * @author abs25, cpd5, drd26 */
+/* TODO: fix navBar heights (probably use a measurement other than px*/
+/*variables*/
+body {
+  background-image: url("../img/background.jpg");
+}
+/* the header and footer are not part of React or Flexbox */
+header {
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 5px;
+}
+footer {
+  color: #fff;
+  padding: 10px 0px 5px 0px;
+  text-align: center;
+}
+.windowComponent {
+  background-color: #d9d9d9;
+  border-radius: 30px;
+  width: 90%;
+  margin: auto;
+}
+/* flexbox container */
+.home {
+  display: flex;
+/** wrap allows the boxes to form a newline if one line is full rather than jamming them all together
+    * this allows the navbar to sit on top of the other three boxes */
+  flex-flow: row wrap;
+}
+/********************/
+/* NavBar component */
+/********************/
+.navBar {
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  width: 95%;
+  margin: auto;
+  padding-top: 10px;
+}
+.navBar ul {
+  border-radius: 3px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #6c7a7d;
+  vertical-align: middle;
+}
+.navBar li {
+  display: inline;
+  font-size: 120%;
+  color: #fff;
+  height: 50px;
+  padding: 15px 25px;
+}
+.navBar li:hover {
+  background-color: #556063;
+}
+/* when the nav links are active */
+.indexActive,
+.aboutActive,
+.scoresActive,
+.mediaActive {
+  background-color: #424a4c;
+  padding: 17px 0 16px 0;
+}
+/**************/
+/* End navBar */
+/**************/
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  font-size: 150%;
+  padding-bottom: 10px;
+}
+td {
+  text-align: center;
+  border-top: 1px solid #000;
+  padding: 10px 0 10px 0;
+}
+/* ScoreBox Component and children */
+.scoreBox {
+  text-align: center;
+  flex: 1 58%;
+  order: 1;
+/* top right bottom left */
+  margin: 10px 0 10px 15px;
+  padding: 10px 20px 5px 15px;
+/*background-color: #ECFFFC*/
+  border-right: 1px solid #000;
+}
+/* score filter flex box */
+.scoreFlexContainer {
+  display: flex;
+  flex-flow: row;
+}
+.scoreSearch {
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: 15px;
+  order: 2;
+}
+.scoreFilter {
+  margin-right: auto;
+  margin-top: auto;
+  order: 1;
+}
+/* end score filter flex */
+.scoreListLength a {
+  text-decoration: underline;
+  color: #00f;
+}
+/* AboutBox component */
+.aboutBox {
+  padding: 15px;
+  margin: 10px 0 0 0;
+/* This allows it to flex to one side at 25% width */
+/*flex: 0 2 22%
+  order: 1 */
+}
+/* MediaBox component and children */
+.mediaBox {
+  padding: 15px 15px 15px 10px;
+  margin: 10px 0 0 10px;
+/* This allows it to flex to one side at 25% width */
+  flex: 1 31%;
+  order: 2;
+}
+/* this keeps the text over the images closer to the image */
+h5 {
+  margin-bottom: 0;
+}
+.unrealImages {
+  clear: both;
+}
+.unityImages {
+  padding-top: 5px;
+  clear: both;
+}
+.codeImages {
+  padding-top: 5px;
+  clear: both;
+}
+.responsiveImg {
+  border-radius: 10px;
+  float: left;
+  height: auto;
+  width: 45%;
+  padding: 5px;
+}
+.video {
+  padding-top: 15px;
+  clear: both;
+  width: 100%;
+}
+.responsiveVideo {
+  padding: 5px;
+}
+/* for smaller screens */
+@media screen and (max-width: 900px) {
+  .home {
+/* Change the design to column so it's more scrollable */
+    flex-flow: column;
+  }
+  .scoreBox {
+    order: 1;
+  }
+  .mediaBox {
+    order: 2;
+  }
+  .scoreFlexContainer {
+    flex-flow: column;
+  }
+  .scoreSearch {
+    order: 1;
+    margin: 0;
+  }
+  .scoreFilter {
+    order: 2;
+    margin: 0;
+  }
+  .navBar li {
+    padding: 15px 20px;
+  }
+}
