@@ -120,8 +120,8 @@ app.get('/top10/:score', function(req, res) {
 			}
 		}
 		res.json(docs);
-	})
-})
+	});
+});
 
 //Get the bottom 10 scores
 app.get('/bottom10/:score', function(req, res) {
