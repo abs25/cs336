@@ -97,16 +97,28 @@ app.get('/scores', function(req, res) {
 });
 
 //Get the top 10 scores
+//TODO: Use the constant DEFAULT_LENGTH for getting any number of scores
 app.get('/top10/:score', function(req, res) {
 	var collection = db.collection('scores');
 
-	//TODO: Check if the player's score is in the top 10.
 	var playerScore = req.params.score;
+
+	//Do a "fake post" where we create a JSON object with the player's score
+	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
 
 	//Sort descending, limit 10 scores, and return them
 	collection.find({}).sort({score: -1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
+		//Loop through scores, check if player's score is in top 10
+		for(i = 0; i < 9; i++) {
+			if(newScore.score >= docs[i].score) {
+				//https://www.tutorialspoint.com/javascript/array_splice.htm\
+				//Yes. Insert the score into that spot of the array, and remove a score below
+				docs.splice(i, 1, newScore);
+				break;
+			}
+		}
 		res.json(docs);
 	})
 })
@@ -115,20 +127,23 @@ app.get('/top10/:score', function(req, res) {
 app.get('/bottom10/:score', function(req, res) {
 	var collection = db.collection('scores');
 
-	//TODO: Check if the player's score is in the bottom 10.
 	var playerScore = req.params.score;
 
-//	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
+	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
+
 	//Sort ascending, limit 10 scores, and return them
 	collection.find({}).sort({score: 1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
-//		for(i = 0; i < 9; i++) {
-//			if(newScore.score <= docs[i].score) {
-//				docs.splice(i, 0, newScore);
-//				break;
-//			}
-//		}
+		//Loop through scores, check if player's score is in bottom 10
+		for(i = 0; i < 9; i++) {
+			if(newScore.score <= docs[i].score) {
+				//https://www.tutorialspoint.com/javascript/array_splice.htm\
+				//Yes. Insert the score into that spot of the array, and remove a score below
+				docs.splice(i, 1, newScore);
+				break;
+			}
+		}
 		res.json(docs);
 	});
 });
@@ -222,6 +237,7 @@ app.post('/score', function(req, res) {
 		id: Number(req.body.id),
 		name: req.body.name,
 		score: Number(req.body.score),
+		//TODO: Fix this so that it doesn't return the number of milliseconds
 		date: Date.now(),
 		difficulty: req.body.difficulty
 	}
