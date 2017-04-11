@@ -104,10 +104,10 @@ app.get('/top10/:score', function(req, res) {
 	var playerScore = req.params.score;
 
 	//Get the index of the player, if found
-	var index = {position: -1};
-	var scores = {scores: []};
+	var index = -1;
 
-	var totalArray = [];
+	//Store the index and obtained scores
+	var scoreJSON = {};
 
 	//Do a "fake post" where we create a JSON object with the player's score
 	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
@@ -122,16 +122,23 @@ app.get('/top10/:score', function(req, res) {
 				//https://www.tutorialspoint.com/javascript/array_splice.htm\
 				//Yes. Insert the score into that spot of the array, and remove a score below
 				docs.splice(i, 1, newScore);
-				index = {position: i};
+				index = i;
 				break;
 			}
 		}
+<<<<<<< HEAD
 		scores = {scores: docs};
 		totalArray.push(index);
 		totalArray.push(scores);
 		res.json(totalArray);
 	});
 });
+=======
+		scoreJSON = {"position": index, "scores": docs};
+		res.json(scoreJSON);
+	})
+})
+>>>>>>> master
 
 //Get the bottom 10 scores
 app.get('/bottom10/:score', function(req, res) {
@@ -141,11 +148,9 @@ app.get('/bottom10/:score', function(req, res) {
 
 	//Position of the player
 	var index = {position: -1};
-	//Scores obtained
-	var scores = {scores: []};
 
-	//Holder for both the position and scores
-	var totalArray = [];
+	//Store index and obtained scores
+	var scoreJSON = {};
 
 	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
 
@@ -159,16 +164,12 @@ app.get('/bottom10/:score', function(req, res) {
 				//https://www.tutorialspoint.com/javascript/array_splice.htm\
 				//Yes. Insert the score into that spot of the array, and remove a score below
 				docs.splice(i, 1, newScore);
-				index = {position: i};
+				index = i;
 				break;
 			}
 		}
-		//Assign the scores obtained
-		scores = {scores: docs};
-		//Put the position and scores into the holder array and send that
-		totalArray.push(index);
-		totalArray.push(scores);
-		res.json(totalArray);
+		scoreJSON = {"position": index, "scores": docs};
+		res.json(scoreJSON);
 	});
 });
 
@@ -181,13 +182,9 @@ app.get('/nearby/:score', function(req, res) {
 	var playerScore = req.params.score;
 
 	//Position of the player's score in the array of scores
-	var index = {position: -1};
-	//Scores obtained
-	var scores = {scores: []};
+	var index = -1;
 
-	//Store the player's score position and the scores
-	var totalArray = [];
-	var scoresArray = [];
+	var scoreJSON = {};
 
 	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
 
@@ -206,24 +203,18 @@ app.get('/nearby/:score', function(req, res) {
 			scoresArray.push(newScore);
 			scoresArray = scoresArray.concat((allScores.slice(0, 9)));
 			//The position of the player is at the start.
-			index = {position: 0};
-			//Assign scores obtained, push pos and scores into holder array,
-			//and send that
-			scores = {scores: scoresArray};
-			totalArray.push(index);
-			totalArray.push(scores);
-			res.json(totalArray);
+			index = 0;
+			scoreJSON = {"position": index, "scores": scoresArray};
+			res.json(scoreJSON);
 		//Is the new player's score in last place?
 		} else if(newScore.score <= lastPlaceScore.score){
 			//Yes. Get the previous 9 scores.
 			scoresArray = scoresArray.concat(allScores.slice((allScores.length-9), allScores.length+1));
 			scoresArray.push(newScore);
 			//The position of the player is at the end.
-			index = {position: scoresArray.length-1};
-			scores = {scores: scoresArray};
-			totalArray.push(index);
-			totalArray.push(scores);
-			res.json(totalArray);
+			index = scoresArray.length-1;
+			scoreJSON = {"position": index, "scores": scoresArray};
+			res.json(scoreJSON);
 		//Else, we're not in either place.
 		} else {
 			//Get the scores greater than the player's score
@@ -238,7 +229,7 @@ app.get('/nearby/:score', function(req, res) {
 					//Stick the player's score into the scores array
 					scoresArray.push(newScore);
 					//The player's position should be at the fifth position in the array.
-					index = {position: 4};
+					index = 4;
 					//Get the scores that are less than the player
 					collection.find({ score: {$lte: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs2) {
 						//If there are more than 5 scores less than the player,
@@ -249,9 +240,8 @@ app.get('/nearby/:score', function(req, res) {
 						} else {
 							scoresArray = scoresArray.concat(docs2);
 						}
-						totalArray.push(index);
-						totalArray.push(scoresArray);
-						res.json(totalArray);
+						scoreJSON = {"position": index, "scores": scoresArray};
+						res.json(scoreJSON);
 					});
 
 				} else {
@@ -259,7 +249,7 @@ app.get('/nearby/:score', function(req, res) {
 					//Push the player's score onto the docs array
 					docs.push(newScore);
 					//The player's position is at the end of the docs array
-					index = {position: docs.length-1};
+					index = docs.length-1;
 					//Get the scores that are less than the player
 					collection.find({ score: {$lte: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs2) {
 						var holder2 = [];
@@ -271,9 +261,8 @@ app.get('/nearby/:score', function(req, res) {
 							//Yes.
 							scoresArray = docs.concat(docs2);
 						}
-						totalArray.push(index);
-						totalArray.push(scoresArray);
-						res.json(totalArray);
+						scoreJSON = {"position": index, "scores": scoresArray};
+						res.json(scoreJSON);
 					});
 				}
 			});
