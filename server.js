@@ -126,19 +126,10 @@ app.get('/top10/:score', function(req, res) {
 				break;
 			}
 		}
-<<<<<<< HEAD
-		scores = {scores: docs};
-		totalArray.push(index);
-		totalArray.push(scores);
-		res.json(totalArray);
-	});
-});
-=======
 		scoreJSON = {"position": index, "scores": docs};
 		res.json(scoreJSON);
-	})
-})
->>>>>>> master
+	});
+});
 
 //Get the bottom 10 scores
 app.get('/bottom10/:score', function(req, res) {
