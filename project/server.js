@@ -3,11 +3,6 @@
 * @author abs25, cpd5, drd26
 */
 
-//I know why date is wonky for some of the records.
-//Date.now() returns the number of MILLISECONDS passed after
-//a certain date.
-//This means, that huge integer is the number of milliseconds passed
-//after that certain date.
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -15,6 +10,26 @@ var bodyParser = require('body-parser');
 var APP_PATH = path.join(__dirname, 'dist');
 // This is the default number of scores presented to the client.
 var DEFAULT_LENGTH = 10;
+
+// http://stackoverflow.com/questions/23593052/format-javascript-date-to-yyyy-mm-dd
+// http://stackoverflow.com/questions/11591854/format-date-to-mm-dd-yyyy-in-javascript
+// Helper function for getting date in a readable format
+function dateFunction() {
+	var todaysDate = new Date();
+	var month = '' + (todaysDate.getMonth() + 1);
+	var day = '' + todaysDate.getDate();
+	var year = todaysDate.getFullYear();
+	// Months with leading 0s (e.g. 01, 02, 03...)
+	if(month.length < 2) {
+		month = '0' + month;
+	}
+	// Days with leading 0s
+	if(day.length < 2) {
+		day = '0' + day;
+	}
+	var readableFormat = (month + '/' + day + '/' + year);
+	return readableFormat;
+};
 
 var MongoClient = require('mongodb').MongoClient;
 var db;
@@ -33,11 +48,10 @@ MongoClient.connect(url, function(err, databaseConnection) {
 var app = express();
 app.use('/', express.static(APP_PATH));
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//main page
+// Serve up an error page should there be a problem.
 app.get('/', function(req, res)
 {
 	// This route should only be served if there is a problem.
@@ -96,64 +110,65 @@ app.get('/scores', function(req, res) {
 
 });
 
-//Get the top 10 scores
-//TODO: Use the constant DEFAULT_LENGTH for getting any number of scores
+// Get the top 10 scores
+// TODO: Use the constant DEFAULT_LENGTH for getting any number of scores
 app.get('/top10/:score', function(req, res) {
 	var collection = db.collection('scores');
 
 	var playerScore = req.params.score;
 
-	//Get the index of the player, if found
+	// Get the index of the player, if found
 	var index = -1;
 
-	//Store the index and obtained scores
+	// Store the index and obtained scores
 	var scoreJSON = {};
 
-	//Do a "fake post" where we create a JSON object with the player's score
-	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
+	// Do a "fake post" where we create a JSON object with the player's score
+	var newScore = {name: "YOU", score: playerScore, date: dateFunction(), difficulty: "YOUR_DIFFICULTY"};
 
-	//Sort descending, limit 10 scores, and return them
+	// Sort descending, limit 10 scores, and return them
 	collection.find({}).sort({score: -1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
-		//Loop through scores, check if player's score is in top 10
+		// Loop through scores, check if player's score is in top 10
 		for(i = 0; i < 9; i++) {
 			if(newScore.score >= docs[i].score) {
-				//https://www.tutorialspoint.com/javascript/array_splice.htm\
-				//Yes. Insert the score into that spot of the array, and remove a score below
+				// https://www.tutorialspoint.com/javascript/array_splice.htm\
+				// Yes. Insert the score into that spot of the array, and remove a score below
 				docs.splice(i, 1, newScore);
 				index = i;
 				break;
 			}
 		}
+		// Store the index of the player and the scores obtained
 		scoreJSON = {"position": index, "scores": docs};
 		res.json(scoreJSON);
 	})
 })
 
-//Get the bottom 10 scores
+// Get the bottom 10 scores
 app.get('/bottom10/:score', function(req, res) {
 	var collection = db.collection('scores');
 
 	var playerScore = req.params.score;
 
-	//Position of the player
+	// Position of the player
 	var index = {position: -1};
 
-	//Store index and obtained scores
+	// Store index and obtained scores
 	var scoreJSON = {};
 
-	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
+	var newScore = {name: "YOU", score: playerScore, date: dateFunction(), difficulty: "YOUR_DIFFICULTY"};
 
-	//Sort ascending, limit 10 scores, and return them
+	// Sort ascending, limit 10 scores, and return them
 	collection.find({}).sort({score: 1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
-		//Loop through scores, check if player's score is in bottom 10
+		// Loop through scores, check if player's score is in bottom 10
 		for(i = 0; i < 9; i++) {
 			if(newScore.score <= docs[i].score) {
-				//https://www.tutorialspoint.com/javascript/array_splice.htm\
-				//Yes. Insert the score into that spot of the array, and remove a score below
+				// https://www.tutorialspoint.com/javascript/array_splice.htm\
+				// Yes. Insert the score into that spot of the array, and remove a score below
 				docs.splice(i, 1, newScore);
 				index = i;
 				break;
@@ -164,70 +179,70 @@ app.get('/bottom10/:score', function(req, res) {
 	});
 });
 
-//This route was written with blood, sweat, and tears.
-//TODO: Make this route more efficient ;-;
-//Get the scores nearby the player's score.
+// This route was written with blood, sweat, and tears.
+// TODO: Make this route more efficient ;-;
+// Get the scores nearby the player's score.
 app.get('/nearby/:score', function(req, res) {
 	var collection = db.collection('scores');
 
 	var playerScore = req.params.score;
 
-	//Position of the player's score in the array of scores
+	// Position of the player's score in the array of scores
 	var index = -1;
 
 	var scoreJSON = {};
 
-	var newScore = {id: 100, name: "YOUR_NAME", score: playerScore, date: new Date(), difficulty: "YOUR_DIFFICULTY"};
+	var newScore = {name: "YOU", score: playerScore, date: dateFunction(), difficulty: "YOUR_DIFFICULTY"};
 
-	//Get all of the scores
+	// Get all of the scores
 	collection.find({}).sort({score: -1}).toArray(function(err, allScores){
 
 		if(err) throw err;
 
-		//Get the current first place and last place scores
+		// Get the current first place and last place scores
 		var firstPlaceScore = allScores[0];
 		var lastPlaceScore = allScores[allScores.length-1];
 
-		//Is the new player's score in first place?
+		// Is the new player's score in first place?
 		if(newScore.score >= firstPlaceScore.score) {
-			//Yes. Get the next 9 scores.
+			// Yes. Get the next 9 scores.
 			scoresArray.push(newScore);
 			scoresArray = scoresArray.concat((allScores.slice(0, 9)));
-			//The position of the player is at the start.
+			// The position of the player is at the start.
 			index = 0;
 			scoreJSON = {"position": index, "scores": scoresArray};
 			res.json(scoreJSON);
-		//Is the new player's score in last place?
+		// Is the new player's score in last place?
 		} else if(newScore.score <= lastPlaceScore.score){
-			//Yes. Get the previous 9 scores.
+			// Yes. Get the previous 9 scores.
 			scoresArray = scoresArray.concat(allScores.slice((allScores.length-9), allScores.length+1));
 			scoresArray.push(newScore);
-			//The position of the player is at the end.
+			// The position of the player is at the end.
 			index = scoresArray.length-1;
 			scoreJSON = {"position": index, "scores": scoresArray};
 			res.json(scoreJSON);
-		//Else, we're not in either place.
+		// Else, we're not in either place.
 		} else {
-			//Get the scores greater than the player's score
+			// Get the scores greater than the player's score
 			collection.find({ score: { $gt: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs) {
 				if(err) throw err;
 
-				//Are there less than 4 scores greater than the player?
+				// Are there less than 4 scores greater than the player?
 				if(docs.length >= 4) {
-					//Nope. Get four scores above
+					// Nope. Get four scores above
 					scoresArray = docs.slice((docs.length-4), docs.length);
 
-					//Stick the player's score into the scores array
+					// Stick the player's score into the scores array
 					scoresArray.push(newScore);
-					//The player's position should be at the fifth position in the array.
+					// The player's position should be at the fifth position in the array.
 					index = 4;
-					//Get the scores that are less than the player
+					// Get the scores that are less than the player
 					collection.find({ score: {$lte: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs2) {
-						//If there are more than 5 scores less than the player,
-						//take 5 from the array
+						// If there are more than 5 scores less than the player,
+						// take 5 from the array
 						if(docs2.length >= 5) {
 							scoresArray = scoresArray.concat(docs2.slice(0, 5));
-							//Else, just concat the scores (we don't have five scores below the player)
+							// Else, just concat the scores (we don't have five scores below the player)
 						} else {
 							scoresArray = scoresArray.concat(docs2);
 						}
@@ -236,20 +251,20 @@ app.get('/nearby/:score', function(req, res) {
 					});
 
 				} else {
-					//We have less than four scores, so we're good.
-					//Push the player's score onto the docs array
+					// We have less than four scores, so we're good.
+					// Push the player's score onto the docs array
 					docs.push(newScore);
-					//The player's position is at the end of the docs array
+					// The player's position is at the end of the docs array
 					index = docs.length-1;
-					//Get the scores that are less than the player
+					// Get the scores that are less than the player
 					collection.find({ score: {$lte: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs2) {
 						var holder2 = [];
-						//Less than 5 scores?
+						// Less than 5 scores?
 						if(docs2.length >= 5) {
-							//No.
+							// No.
 							scoresArray = docs.concat(docs2.slice(0, 5));
 						} else {
-							//Yes.
+							// Yes.
 							scoresArray = docs.concat(docs2);
 						}
 						scoreJSON = {"position": index, "scores": scoresArray};
@@ -261,14 +276,12 @@ app.get('/nearby/:score', function(req, res) {
 	});
 });
 
-// This is the route that the game will use to post new scores.
+// Post a new score to the database
 app.post('/score', function(req, res) {
 	var newScore = {
-		id: Number(req.body.id),
 		name: req.body.name,
 		score: Number(req.body.score),
-		//TODO: Fix this so that it doesn't return the number of milliseconds
-		date: Date.now(),
+		date: dateFunction(),
 		difficulty: req.body.difficulty
 	}
 
