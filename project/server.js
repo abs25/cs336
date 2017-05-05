@@ -161,7 +161,7 @@ app.get('/bottom10/:score', function(req, res) {
 	var newScore = {name: "YOU", score: playerScore, date: dateFunction(), difficulty: "YOUR_DIFFICULTY"};
 
 	// Sort ascending, limit 10 scores, and return them
-	collection.find({}).sort({score: -1}).limit(10).toArray(function(err, docs) {
+	collection.find({}).sort({score: 1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
 		// Loop through scores, check if player's score is in bottom 10
@@ -322,7 +322,7 @@ app.get('/submit/bottom10/:score', function(req, res) {
 	var scoreJSON = {};
 
 	// Sort ascending, limit 10 scores, and return them
-	collection.find({}).sort({score: -1}).limit(10).toArray(function(err, docs) {
+	collection.find({}).sort({score: 1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
 		// Loop through scores, check if player's score is in bottom 10
