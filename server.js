@@ -407,7 +407,7 @@ app.get('/submit/nearby/:score', function(req, res) {
 				} else {
 					// We have less than four scores, so we're good.
 					// The player's position is at the end of the docs array
-					index = docs.length-1;
+					index = docs.length;
 					// Get the scores that are less than the player
 					collection.find({ score: {$lte: Number(playerScore) }}).sort({score: -1}).toArray(function(err, docs2) {
 						var holder2 = [];
