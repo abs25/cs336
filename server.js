@@ -131,7 +131,7 @@ app.get('/top10/:score', function(req, res) {
 		if(err) throw err;
 
 		// Loop through scores, check if player's score is in top 10
-		for(i = 0; i < 9; i++) {
+		for(i = 0; i < docs.length; i++) {
 			if(newScore.score >= docs[i].score) {
 				// https://www.tutorialspoint.com/javascript/array_splice.htm\
 				// Yes. Insert the score into that spot of the array, and remove a score below
@@ -164,16 +164,32 @@ app.get('/bottom10/:score', function(req, res) {
 	collection.find({}).sort({score: 1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
+		// Reverse the elements in the array (since mongo will sort the whole array of scores)
+		// first before taking 10 from the whole array, this has to be done so the scores
+		// look normal.
+		docs.reverse();
+
 		// Loop through scores, check if player's score is in bottom 10
-		for(i = 0; i < 9; i++) {
-			if(newScore.score <= docs[i].score) {
+		for(i = 0; i < docs.length; i++) {
+			index = i;
+			if(newScore.score < docs[i].score) {
+				continue;
+			} else {
 				// https://www.tutorialspoint.com/javascript/array_splice.htm\
 				// Yes. Insert the score into that spot of the array, and remove a score below
 				docs.splice(i, 1, newScore);
-				index = i;
 				break;
 			}
 		}
+
+		// If the player's score is less than all bottom 10 scores,
+		// place it at the end of the array.
+		if(index == docs.length-1) {
+			// Pop off the first score so that the leaderboard gets 10 scores and not 11!
+			docs.shift();
+			docs.push(newScore);
+		}
+
 		scoreJSON = {"position": index, "scores": docs};
 		res.json(scoreJSON);
 	});
@@ -296,7 +312,7 @@ app.get('/submit/top10/:score', function(req, res) {
 		if(err) throw err;
 
 		// Loop through scores, check if player's score is in top 10
-		for(i = 0; i < 9; i++) {
+		for(i = 0; i < docs.length; i++) {
 			if(playerScore >= docs[i].score) {
 				// Yes. Store the index
 				index = i;
@@ -325,13 +341,21 @@ app.get('/submit/bottom10/:score', function(req, res) {
 	collection.find({}).sort({score: 1}).limit(10).toArray(function(err, docs) {
 		if(err) throw err;
 
+		// Reverse the elements in the array (since mongo will sort the whole array of scores)
+		// first before taking 10 from the whole array, this has to be done so the scores
+		// look normal.
+		docs.reverse();
+
 		// Loop through scores, check if player's score is in bottom 10
-		for(i = 0; i < 9; i++) {
-			if(playerScore <= docs[i].score) {
-				index = i;
+		for(i = 0; i < docs.length; i++) {
+			index = i;
+			if(playerScore < docs[i].score) {
+				continue;
+			} else {
 				break;
 			}
 		}
+
 		scoreJSON = {"position": index, "scores": docs};
 		res.json(scoreJSON);
 	});
