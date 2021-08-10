@@ -143,8 +143,8 @@ app.get('/top10/:score', function(req, res) {
 		// Store the index of the player and the scores obtained
 		scoreJSON = {"position": index, "scores": docs};
 		res.json(scoreJSON);
-	})
-})
+	});
+});
 
 // Get the bottom 10 scores
 app.get('/bottom10/:score', function(req, res) {
